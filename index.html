@@ -1,0 +1,73 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Countries</title>
+  <style>
+    body {
+      display: grid;
+    }
+
+    label {
+      display: block;
+    }
+
+    input {
+      display: block;
+      margin: 10px 0 10px 0;
+    }
+
+    h1 {
+      color: teal;
+    }
+
+    .container {
+      margin: auto;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>CHECK THE WEATHER!</h1>
+    <form action="/" method="post">
+
+      <label for="countries">Choose your Country:</label>
+      <select id="countries" name="countries"></select>
+      <br>
+      <br>
+      <button type="submit">Check Weather</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const selectDrop = document.querySelector('#countries');
+      // const selectDrop = document.getElementById('countries');
+
+
+      fetch('https://restcountries.com/v3.1/all').then(res => {
+        return res.json();
+      }).then(data => {
+        let output="";
+        data.forEach(country => {
+
+          output += `<option>${country.name.common}</option>`;
+          selectDrop.innerHTML= output;
+          console.log(country.name.common);
+          
+        });
+      }).catch(err => {
+        console.log(err);
+      })
+
+    });
+  </script>
+</body>
+
+</html>
